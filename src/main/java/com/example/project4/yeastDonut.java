@@ -1,9 +1,8 @@
 package com.example.project4;
 
-public class Coffee extends MenuItem{
-
+public class yeastDonut extends MenuItem{
     @Override
     public double itemPrice() {
-        return 1.89;
+        return 1.59;
     }
 }
