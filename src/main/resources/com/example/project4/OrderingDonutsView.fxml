@@ -10,6 +10,7 @@
     <children>
         <HBox prefHeight="67.0" prefWidth="604.0">
             <children>
+            <Button mnemonicParsing="false" onAction="#switchToMainPage" text="back" />
                 <Label prefHeight="148.0" prefWidth="358.0" text="Order Donuts">
                     <font>
                         <Font name="MT Extra" size="58.0" />
@@ -29,13 +30,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <ComboBox fx:id="donutSelect" focusTraversable="false" prefHeight="43.0" prefWidth="198.0" promptText="Choose a Donut" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <ComboBox fx:id="donutSelect" focusTraversable="false" onAction="#displayDonuts" prefHeight="43.0" prefWidth="198.0" promptText="Choose a Donut" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets bottom="50.0" right="40.0" />
                     </GridPane.margin></ComboBox>
                 <ImageView fitHeight="155.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                     <image>
-                        <Image url="@DonutController.png" />
+                        <Image url="@DonutController.jpg" />
                     </image>
                     <GridPane.margin>
                         <Insets right="90.0" />
@@ -57,11 +58,11 @@
                     <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
                 </ListView>
-                <ListView fx:id="donutList" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                <ListView fx:id="finalList" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                     <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
@@ -76,17 +77,17 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ComboBox focusTraversable="false" prefHeight="34.0" prefWidth="107.0" promptText="Quantity">
+                        <ComboBox fx:id="quantity" focusTraversable="false" prefHeight="34.0" prefWidth="107.0" promptText="Quantity">
                             <GridPane.margin>
                                 <Insets left="10.0" right="10.0" />
                             </GridPane.margin>
                         </ComboBox>
-                        <Button focusTraversable="false" mnemonicParsing="false" prefHeight="36.0" prefWidth="50.0" text="&gt;&gt;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#add" prefHeight="36.0" prefWidth="50.0" text="&gt;&gt;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button focusTraversable="false" mnemonicParsing="false" prefHeight="36.0" prefWidth="53.0" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#remove" prefHeight="36.0" prefWidth="53.0" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -100,11 +101,11 @@
                     <font>
                         <Font name="MT Extra" size="18.0" />
                     </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
                 </Label>
-                <TextField fx:id="subTotalText" editable="false" focusTraversable="false" prefHeight="28.0" prefWidth="118.0" text="\$0.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="subTotal" editable="false" focusTraversable="false" prefHeight="28.0" prefWidth="118.0" text="\$0.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>

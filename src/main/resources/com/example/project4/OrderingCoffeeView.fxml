@@ -10,6 +10,7 @@
     <children>
         <HBox prefHeight="84.0" prefWidth="604.0">
             <children>
+            <Button mnemonicParsing="false" onAction="#switchToMainPage" text="Back" />
                 <Label prefHeight="68.0" prefWidth="341.0" text="Order Coffee">
                     <font>
                         <Font name="MT Extra" size="58.0" />
@@ -50,9 +51,9 @@
                     <padding>
                         <Insets left="55.0" />
                     </padding>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
                 </CheckBox>
                 <CheckBox fx:id="caramelBox" focusTraversable="false" mnemonicParsing="false" text="Caramel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                     <font>
@@ -71,7 +72,7 @@
                     </GridPane.margin>
                 </CheckBox>
                 <ComboBox fx:id="sizeSelect" focusTraversable="false" prefHeight="25.0" prefWidth="117.0" promptText="Choose a Size" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                <ComboBox fx:id="quantitiesSelect" focusTraversable="false" prefHeight="26.0" prefWidth="121.0" promptText="Quantity" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <ComboBox fx:id="quantityCoffee" focusTraversable="false" prefHeight="26.0" prefWidth="121.0" promptText="Quantity" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             </children>
         </GridPane>
         <GridPane prefHeight="167.0" prefWidth="604.0">
@@ -104,9 +105,9 @@
                     <font>
                         <Font size="18.0" />
                     </font>
-               <GridPane.margin>
-                  <Insets left="25.0" />
-               </GridPane.margin>
+                    <GridPane.margin>
+                        <Insets left="25.0" />
+                    </GridPane.margin>
                 </Button>
             </children>
         </GridPane>
