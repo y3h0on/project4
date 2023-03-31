@@ -41,9 +41,9 @@ public class DonutController {
     public void initialize(){
         colorList = FXCollections.observableArrayList("Yeast Donuts", "Cake Donuts", "Donut Holes");
         donutSelect.setItems(colorList);
-        yeastList =  FXCollections.observableArrayList("glazed Donuts" , "frosted Donuts", "rainbow sprinkles Donuts", "chocolate glazed Donuts");
-        cakeList =  FXCollections.observableArrayList("powdered Donuts" , "apple sliced Donuts", "rainbow sprinkles Donuts", "chocolate covered Donuts");
-        donutHoleList = FXCollections.observableArrayList("churro Donut Holes" , "Nutella Donut Holes", "peanut butter Donut Holes", "chocolate glazed Donut Holes");
+        yeastList =  FXCollections.observableArrayList("glazed Donuts" , "frosted Donuts", "rainbow Donuts", "chocolate Donuts");
+        cakeList =  FXCollections.observableArrayList("powdered Donuts" , "apple sliced", "rainbow sprinkles", "chocolate covered");
+        donutHoleList = FXCollections.observableArrayList("churro Donut" , "Nutella Donut", "peanut butter", "chocolate glazed");
         numberList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6);
         quantity.setItems(numberList);
         containsQuantityDonut = FXCollections.observableArrayList();
@@ -64,7 +64,7 @@ public class DonutController {
     @FXML
     public void displayDonuts(ActionEvent event){
         if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")){
-            flavorList.setItems( yeastList);
+            flavorList.setItems(yeastList);
         }
         if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Cake Donuts")){
             flavorList.setItems(cakeList);
@@ -75,18 +75,6 @@ public class DonutController {
 
     }
 
-    /*public String kindOfDonut(){
-        if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")){
-            return "Yeast Donut";
-        }
-        if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Cake Donuts")){
-            return "Cake Donut";
-        }
-        if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Donut Holes")){
-            return "Donut Holes";
-        }
-        return null;
-    }*/
 
     private double calculateAmount(){
         int a = listOfYeastDonuts.size();
@@ -102,52 +90,56 @@ public class DonutController {
 
     @FXML
     void add(ActionEvent event){
-        if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")) {
-            if (!flavorList.getSelectionModel().isEmpty()) {
-                int b = quantity.getSelectionModel().getSelectedItem();
-                for (int i = 0; i < b; i++) {
-                    yeastDonut z = new yeastDonut();
-                    listOfYeastDonuts.add(z);
-                }
-                int a = flavorList.getSelectionModel().getSelectedIndex();
-                String c = flavorList.getSelectionModel().getSelectedItem();
-                yeastList.remove(a);
-                flavorList.setItems(yeastList);
-                String j = b + " " + c;
-                containsQuantityDonut.add(j);
-                finalList.setItems(containsQuantityDonut);
-            } else {
-                Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setTitle("ERROR!");
-                error.setContentText("select a different type of donut.");
-                error.showAndWait();
-            }
-            subTotal.setText(String.valueOf(calculateAmount()));
-        }
-            if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Cake Donuts")) {
-                if (!flavorList.getSelectionModel().isEmpty()) {
-                    int b = quantity.getSelectionModel().getSelectedItem();
-                    for (int i = 0; i < b; i++) {
-                        cakeDonut v = new cakeDonut();
-                        listOfCakeDonuts.add(v);
+        if(!donutSelect.getSelectionModel().isEmpty()) {
+            if (!quantity.getSelectionModel().isEmpty()) {
+                if (donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")) {
+                    if (!flavorList.getSelectionModel().isEmpty()) {
+                        int b = quantity.getSelectionModel().getSelectedItem();
+                        for (int i = 0; i < b; i++) {
+                            yeastDonut z = new yeastDonut();
+                            listOfYeastDonuts.add(z);
+                        }
+                        int a = flavorList.getSelectionModel().getSelectedIndex();
+                        String c = flavorList.getSelectionModel().getSelectedItem();
+                        yeastList.remove(a);
+                        flavorList.setItems(yeastList);
+                        String j = b + " " + c;
+                        containsQuantityDonut.add(j);
+                        finalList.setItems(containsQuantityDonut);
+                    } else {
+                        Alert error = new Alert(Alert.AlertType.ERROR);
+                        error.setTitle("ERROR!");
+                        error.setContentText("select a different type of donut.");
+                        error.showAndWait();
                     }
-                    int a = flavorList.getSelectionModel().getSelectedIndex();
-                    String c = flavorList.getSelectionModel().getSelectedItem();
-                    cakeList.remove(a);
-                    flavorList.setItems(cakeList);
-                    String j = b + " " + c;
-                    containsQuantityDonut.add(j);
-                    finalList.setItems(containsQuantityDonut);
-                } else {
-                    Alert error = new Alert(Alert.AlertType.ERROR);
-                    error.setTitle("ERROR!");
-                    error.setContentText("select a different type of donut.");
-                    error.showAndWait();
+                    subTotal.setText(String.valueOf(calculateAmount()));
                 }
-                subTotal.setText(String.valueOf(calculateAmount()));
-            }
-                if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Donut Holes")){
-                    if(!flavorList.getSelectionModel().isEmpty()) {
+
+                if (donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Cake Donuts")) {
+                    if (!flavorList.getSelectionModel().isEmpty()) {
+                        int b = quantity.getSelectionModel().getSelectedItem();
+                        for (int i = 0; i < b; i++) {
+                            cakeDonut v = new cakeDonut();
+                            listOfCakeDonuts.add(v);
+                        }
+                        int a = flavorList.getSelectionModel().getSelectedIndex();
+                        String c = flavorList.getSelectionModel().getSelectedItem();
+                        cakeList.remove(a);
+                        flavorList.setItems(cakeList);
+                        String j = b + " " + c;
+                        containsQuantityDonut.add(j);
+                        finalList.setItems(containsQuantityDonut);
+                    } else {
+                        Alert error = new Alert(Alert.AlertType.ERROR);
+                        error.setTitle("ERROR!");
+                        error.setContentText("select a different type of donut.");
+                        error.showAndWait();
+                    }
+                    subTotal.setText(String.valueOf(calculateAmount()));
+                }
+
+                if (donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Donut Holes")) {
+                    if (!flavorList.getSelectionModel().isEmpty()) {
                         int b = quantity.getSelectionModel().getSelectedItem();
                         for (int i = 0; i < b; i++) {
                             donutHoles x = new donutHoles();
@@ -160,7 +152,7 @@ public class DonutController {
                         String j = b + " " + c;
                         containsQuantityDonut.add(j);
                         finalList.setItems(containsQuantityDonut);
-                    }else{
+                    } else {
                         Alert error = new Alert(Alert.AlertType.ERROR);
                         error.setTitle("ERROR!");
                         error.setContentText("select a different type of donut.");
@@ -168,17 +160,36 @@ public class DonutController {
                     }
                     subTotal.setText(String.valueOf(calculateAmount()));
                 }
+            } else {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("ERROR!");
+                error.setContentText("select a quantity.");
+                error.showAndWait();
+            }
+
+        }else{
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("ERROR!");
+            error.setContentText("select a donut Type");
+            error.showAndWait();
+        }
     }
 
 
     @FXML
     void remove(ActionEvent event){
         if(!finalList.getSelectionModel().isEmpty()){
-            if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")){
-                String a = finalList.getSelectionModel().getSelectedItem();
-                String[] b = a.split(" ");
-                int k = listOfYeastDonuts.size()-1;
-                listOfYeastDonuts.clear();
+            String a = finalList.getSelectionModel().getSelectedItem();
+            String[] b = a.split(" ");
+            String temp = b[1] + " " +b[2];
+            int num = Integer.parseInt(b[0]);
+            subTotal.setText(temp);
+
+            if(temp.equalsIgnoreCase("glazed Donuts") || temp.equalsIgnoreCase("frosted Donuts") || temp.equalsIgnoreCase("rainbow Donuts") || temp.equalsIgnoreCase("chocolate Donuts")  ){
+                for(int i = 0; i < num; i++){
+                    listOfYeastDonuts.remove(listOfYeastDonuts.size()-1);
+                    listOfYeastDonuts.trimToSize();
+                }
                 containsQuantityDonut.remove(a);
                 yeastList.add(b[1] + " " + b[2]);
                 flavorList.setItems(yeastList);
@@ -186,9 +197,28 @@ public class DonutController {
             }
 
 
+            if(temp.equalsIgnoreCase("powdered Donuts") || temp.equalsIgnoreCase("apple sliced") || temp.equalsIgnoreCase("rainbow sprinkles") || temp.equalsIgnoreCase("chocolate covered")  ){
+                for(int i = 0; i < num; i++){
+                    listOfCakeDonuts.remove(listOfCakeDonuts.size()-1);
+                    listOfCakeDonuts.trimToSize();
+                }
+                containsQuantityDonut.remove(a);
+                cakeList.add(b[1] + " " + b[2]);
+                flavorList.setItems(cakeList);
+                subTotal.setText(String.valueOf(calculateAmount()));
+            }
 
-
-
+            if(temp.equalsIgnoreCase("churro Donut") || temp.equalsIgnoreCase("Nutella Donut") || temp.equalsIgnoreCase("peanut butter") || temp.equalsIgnoreCase("chocolate glazed")  ){
+                for(int i = 0; i < num; i++){
+                    listOfDonutHoles.remove(listOfDonutHoles.size()-1);
+                    listOfDonutHoles.trimToSize();
+                }
+                containsQuantityDonut.remove(a);
+                donutHoleList.add(b[1] + " " + b[2]);
+                flavorList.setItems(donutHoleList);
+                //set it to the respective type of donut here its donut holes
+                subTotal.setText(String.valueOf(calculateAmount()));
+            }
         }else{
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("ERROR!");
