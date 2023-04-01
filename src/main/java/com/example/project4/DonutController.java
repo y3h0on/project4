@@ -12,11 +12,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+
 public class DonutController {
+    
+    @FXML
+    private ImageView donutImage;
     @FXML
     private ComboBox<String> donutSelect;
     @FXML
@@ -47,7 +56,6 @@ public class DonutController {
         numberList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6);
         quantity.setItems(numberList);
         containsQuantityDonut = FXCollections.observableArrayList();
-
     }
 
 
@@ -60,20 +68,29 @@ public class DonutController {
         stage.show();
     }
 
-
+    //put image file in the directory same as src
     @FXML
     public void displayDonuts(ActionEvent event){
         if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")){
+            File file = new File("yeastDonut.jpg");
+            Image image1 = new Image(file.toURI().toString());
+            donutImage.setImage(image1);
             flavorList.setItems(yeastList);
         }
         if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Cake Donuts")){
+            File file = new File("cakeDonut.jpg");
+            Image image1 = new Image(file.toURI().toString());
+            donutImage.setImage(image1);
             flavorList.setItems(cakeList);
         }
         if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Donut Holes")){
+            File file = new File("donutHole.jpg");
+            Image image1 = new Image(file.toURI().toString());
+            donutImage.setImage(image1);
             flavorList.setItems(donutHoleList);
         }
-
     }
+
 
 
     private double calculateAmount(){
