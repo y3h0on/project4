@@ -5,10 +5,13 @@ public class donutHoles extends MenuItem{
     public double itemPrice() {
         return 0.39;
     }
-    private static final String flavor1 = "chocolate_glazed";
-    private static final String flavor2 = "rainbow_sprinkles";
-    private static final String flavor3 = "boston_creme";
-    private static final String flavor4 = "cinnamon";
+    @Override
+    public String toString(){
+        return "donut holes";
+    }
+
+
+
 }
 
 

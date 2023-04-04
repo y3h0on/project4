@@ -41,12 +41,19 @@ public class CoffeeController {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private MainController mainController = new MainController();
 
     public void initialize(){
         numberList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6);
         quantityCoffee.setItems(numberList);
         sizeList = FXCollections.observableArrayList("Short", "Tall", "Grande", "Venti");
         sizeSelect.setItems(sizeList);
+        //Order order = new Order(0, menuItems);
+
+    }
+
+    public void setMainController(MainController controller){
+        mainController = controller;
     }
 
     @FXML
@@ -138,43 +145,37 @@ public class CoffeeController {
     }
 
 
-    /*private boolean checkErrors(){
-        if(!sizeSelect.getSelectionModel().isEmpty() && !quantityCoffee.getSelectionModel().isEmpty()){
-            return true;
-        }
-        if(sizeSelect.getSelectionModel().isEmpty() && quantityCoffee.getSelectionModel().isEmpty()){
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("ERROR!");
-            error.setContentText("select a size and the quantity");
-            error.showAndWait();
-            return false;
-        }
-        if(sizeSelect.getSelectionModel().isEmpty() && !quantityCoffee.getSelectionModel().isEmpty()){
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("ERROR!");
-            error.setContentText("select a size");
-            error.showAndWait();
-            return false;
-        }
-        if(!sizeSelect.getSelectionModel().isEmpty() && quantityCoffee.getSelectionModel().isEmpty()){
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("ERROR!");
-            error.setContentText("select the quantity.");
-            error.showAndWait();
-            return false;
-        }
-        return false;
-    }*/
-
     @FXML
     void addToCart(ActionEvent event){
         if(checkErrors()){
+            Order order = new Order(0, menuItems);
             int a = quantityCoffee.getSelectionModel().getSelectedItem();
+            ArrayList<String> addIns = new ArrayList<>();
+            if(frenchVanilla.isSelected()){
+                addIns.add("french Vanilla");
+            }
+            if(sweetCream.isSelected()){
+                addIns.add("sweet cream");
+            }
+            if(irishCream.isSelected()){
+                addIns.add("irish cream");
+            }
+            if(caramel.isSelected()){
+                addIns.add("caramel");
+            }
+            if(mocha.isSelected()){
+                addIns.add("mocha");
+            }
+
             for(int i = 0; i < a; i++){
-                Coffee c = new Coffee();
+                Coffee c = new Coffee(sizeSelect.getSelectionModel().getSelectedItem(), addIns);
                 menuItems.add(c);
             }
-            Coffee c = new Coffee();
+            //String item = a + " " + sizeSelect.getSelectionModel().getSelectedItem();
+            Coffee c = new Coffee(sizeSelect.getSelectionModel().getSelectedItem(), addIns);
+            mainController.getList().add( "Coffee" + " ("+quantityCoffee.getSelectionModel().getSelectedItem() + ") " + c.toString() );
+            double b = Double.parseDouble(df.format(amt()));
+            mainController.getMoreList().add(b);
         }
     }
 

@@ -5,4 +5,9 @@ public class yeastDonut extends MenuItem{
     public double itemPrice() {
         return 1.59;
     }
+
+    @Override
+    public String toString(){
+        return "yeast donuts";
+    }
 }

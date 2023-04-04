@@ -20,12 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-
 public class DonutController {
-    
-    @FXML
-    private ImageView donutImage;
     @FXML
     private ComboBox<String> donutSelect;
     @FXML
@@ -42,10 +37,19 @@ public class DonutController {
     private ObservableList<String> containsQuantityDonut;
     @FXML
     private TextField subTotal;
+    private MainController mainController = new MainController();
+    @FXML
+    private ImageView donutImage;
 
+    ArrayList<MenuItem> orderList = new ArrayList<>();
     ArrayList<yeastDonut> listOfYeastDonuts = new ArrayList<>();
     ArrayList<cakeDonut> listOfCakeDonuts = new ArrayList<>();
     ArrayList<donutHoles> listOfDonutHoles = new ArrayList<>();
+
+
+    public void setMainController(MainController controller) {
+        mainController = controller;
+    }
 
     public void initialize(){
         colorList = FXCollections.observableArrayList("Yeast Donuts", "Cake Donuts", "Donut Holes");
@@ -56,6 +60,8 @@ public class DonutController {
         numberList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6);
         quantity.setItems(numberList);
         containsQuantityDonut = FXCollections.observableArrayList();
+        Order order = new Order(0, orderList);
+
     }
 
 
@@ -68,7 +74,7 @@ public class DonutController {
         stage.show();
     }
 
-    //put image file in the directory same as src
+
     @FXML
     public void displayDonuts(ActionEvent event){
         if(donutSelect.getSelectionModel().getSelectedItem().equalsIgnoreCase("Yeast Donuts")){
@@ -89,8 +95,8 @@ public class DonutController {
             donutImage.setImage(image1);
             flavorList.setItems(donutHoleList);
         }
-    }
 
+    }
 
 
     private double calculateAmount(){
@@ -115,6 +121,7 @@ public class DonutController {
                         for (int i = 0; i < b; i++) {
                             yeastDonut z = new yeastDonut();
                             listOfYeastDonuts.add(z);
+                            orderList.add(z);
                         }
                         int a = flavorList.getSelectionModel().getSelectedIndex();
                         String c = flavorList.getSelectionModel().getSelectedItem();
@@ -138,6 +145,7 @@ public class DonutController {
                         for (int i = 0; i < b; i++) {
                             cakeDonut v = new cakeDonut();
                             listOfCakeDonuts.add(v);
+                            orderList.add(v);
                         }
                         int a = flavorList.getSelectionModel().getSelectedIndex();
                         String c = flavorList.getSelectionModel().getSelectedItem();
@@ -161,6 +169,7 @@ public class DonutController {
                         for (int i = 0; i < b; i++) {
                             donutHoles x = new donutHoles();
                             listOfDonutHoles.add(x);
+                            orderList.add(x);
                         }
                         int a = flavorList.getSelectionModel().getSelectedIndex();
                         String c = flavorList.getSelectionModel().getSelectedItem();
@@ -243,6 +252,39 @@ public class DonutController {
             error.showAndWait();
         }
     }
+
+
+    @FXML
+    void addToOrder(ActionEvent event){
+        Order order = new Order(0, orderList);
+
+        if(!finalList.getItems().isEmpty()){
+            yeastDonut y = new yeastDonut();
+            donutHoles d = new donutHoles();
+            cakeDonut c = new cakeDonut();
+            for (String name: containsQuantityDonut){
+                mainController.getList().add(name);
+
+            }
+
+
+
+            /*mainController.getList().add(listOfYeastDonuts.size() + " "+ y.toString());
+            mainController.getList().add(listOfCakeDonuts.size() + " " + c.toString());
+            mainController.getList().add(listOfDonutHoles.size() + " " +  d.toString());*/
+
+        }else{
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("ERROR!");
+            error.setContentText("nothing to add to the cart.");
+            error.showAndWait();
+        }
+    }
+
+
+
+
+
 
 
 
