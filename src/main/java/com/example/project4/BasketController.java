@@ -17,8 +17,13 @@ import java.util.ArrayList;
 
 public class BasketController {
 
-    @FXML
-    private TextField totalCost;
+    private static final double SALES_TAX = 6.625;
+   @FXML
+    private TextField subTotal;
+   @FXML
+   private TextField salesTax;
+   @FXML
+   private TextField totalCost;
     @FXML
     private ListView<String> finalList;
     private ObservableList<String> base;
@@ -32,8 +37,16 @@ public class BasketController {
             for (String name: ace){
                 base.add(name);
             }
-        //base.add(ace.get(ace.size()-1));
-        //totalCost.setText(cost.get(cost.size()-1).toString()); displays the total cost for coffee
+            double total = 0;
+            for(double num : cost){
+                total = total + num;
+            }
+            subTotal.setText(String.valueOf(total));
+            double tax = ((total*SALES_TAX)/100);
+            salesTax.setText(String.valueOf(tax));
+            double u = tax + total;
+            totalCost.setText(String.valueOf(u));
+
         finalList.setItems(base);}
     }
     @FXML
@@ -53,4 +66,22 @@ public class BasketController {
         base.add(mainController.getList().toString());
         finalList.setItems(base);
     }*/
+    @FXML
+    void remove(ActionEvent event){
+        int a = finalList.getSelectionModel().getSelectedIndex();
+        ObservableList<String> selected = finalList.getSelectionModel().getSelectedItems();
+        finalList.getItems().removeAll(selected);
+        //also need to remove the selected item from the main controller list.
+        mainController.getList().remove(a);
+
+        //make a getCost method  for whatever string we are deleting.
+        mainController.getMoreList().remove(a);
+        double total = mainController.getTotal();
+        subTotal.setText(String.valueOf(total));
+        double tax = ((total*SALES_TAX)/100);
+        salesTax.setText(String.valueOf(tax));
+        double u = tax + total;
+        totalCost.setText(String.valueOf(u));
+
+    }
 }

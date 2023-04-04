@@ -253,6 +253,10 @@ public class DonutController {
         }
     }
 
+    /*public double getCost(String a){
+        if()
+    }*/
+
 
     @FXML
     void addToOrder(ActionEvent event){
@@ -264,14 +268,8 @@ public class DonutController {
             cakeDonut c = new cakeDonut();
             for (String name: containsQuantityDonut){
                 mainController.getList().add(name);
-
             }
-
-
-
-            /*mainController.getList().add(listOfYeastDonuts.size() + " "+ y.toString());
-            mainController.getList().add(listOfCakeDonuts.size() + " " + c.toString());
-            mainController.getList().add(listOfDonutHoles.size() + " " +  d.toString());*/
+            mainController.getMoreList().add(calculateAmount());
 
         }else{
             Alert error = new Alert(Alert.AlertType.ERROR);

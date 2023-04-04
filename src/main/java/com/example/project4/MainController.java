@@ -38,7 +38,7 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderingCoffeeView.fxml"));
             root = (VBox) loader.load();
-            Scene scene = new Scene(root, 700, 700);
+            Scene scene = new Scene(root, 600, 600);
             view1.setScene(scene);
             view1.show();
             CoffeeController coffeeController = loader.getController();
@@ -57,14 +57,6 @@ public class MainController {
         }
     }
 
-    /*@FXML
-    public void switchToDonutPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("OrderingDonutsView.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }*/
     @FXML
     protected void switchToDonutPage() {
         Stage view1 = new Stage();
@@ -72,7 +64,7 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderingDonutsView.fxml"));
             root = (VBox) loader.load();
-            Scene scene = new Scene(root, 700, 700);
+            Scene scene = new Scene(root, 600, 600);
             view1.setScene(scene);
             view1.show();
             DonutController donutController = loader.getController();
@@ -101,7 +93,7 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderingBasketView.fxml"));
             root = (VBox) loader.load();
-            Scene scene = new Scene(root, 700, 700);
+            Scene scene = new Scene(root, 600, 600);
             view1.setScene(scene);
             view1.show();
             BasketController basketController = loader.getController();
@@ -120,14 +112,7 @@ public class MainController {
             alert.showAndWait();
         }
     }
-    /*@FXML
-    public void switchToBasketPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("OrderingBasketView.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }*/
+
 
     @FXML
     public void switchToStoreOrderPage(ActionEvent event) throws IOException {
@@ -139,6 +124,13 @@ public class MainController {
     }
 
 
+    public double getTotal(){
+        double a = 0;
+        for(double num : costOfCoffee){
+            a = a + num;
+        }
+        return a;
+    }
 
     /*@FXML
     protected void display(ActionEvent event){
