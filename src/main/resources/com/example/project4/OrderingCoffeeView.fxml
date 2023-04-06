@@ -10,7 +10,6 @@
     <children>
         <HBox prefHeight="84.0" prefWidth="604.0">
             <children>
-            <Button mnemonicParsing="false" onAction="#switchToMainPage" text="Back" />
                 <Label prefHeight="68.0" prefWidth="341.0" text="Order Coffee">
                     <font>
                         <Font name="MT Extra" size="58.0" />

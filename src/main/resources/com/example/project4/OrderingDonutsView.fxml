@@ -10,7 +10,6 @@
     <children>
         <HBox prefHeight="67.0" prefWidth="604.0">
             <children>
-            <Button mnemonicParsing="false" onAction="#switchToMainPage" text="back" />
                 <Label prefHeight="148.0" prefWidth="358.0" text="Order Donuts">
                     <font>
                         <Font name="MT Extra" size="58.0" />
@@ -34,7 +33,7 @@
                     <GridPane.margin>
                         <Insets bottom="50.0" right="40.0" />
                     </GridPane.margin></ComboBox>
-                <ImageView fitHeight="155.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                <ImageView fx:id="donutImage" fitHeight="155.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                     <image>
                         <Image url="@DonutController.jpg" />
                     </image>
@@ -119,7 +118,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </TextField>
-                <Button focusTraversable="false" mnemonicParsing="false" prefHeight="36.0" prefWidth="128.0" text="Add to Order" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                <Button focusTraversable="false" mnemonicParsing="false" onAction="#addToOrder" prefHeight="36.0" prefWidth="128.0" text="Add to Order" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                     <font>
                         <Font name="MT Extra" size="18.0" />
                     </font>
