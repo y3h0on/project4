@@ -8,7 +8,6 @@
 
 <VBox alignment="CENTER" prefHeight="549.0" prefWidth="604.0" spacing="20.0" style="-fx-background-color: #b3ae9a;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project4.BasketController">
     <children>
-      <Button mnemonicParsing="false" onAction="#switchToMainPage" text="Back" />
         <HBox prefHeight="133.0" prefWidth="604.0">
             <children>
                 <Label prefHeight="100.0" prefWidth="371.0" text="Review item">
@@ -114,7 +113,7 @@
                         <Font name="MT Extra" size="18.0" />
                     </font>
                 </Button>
-                <Button focusTraversable="false" mnemonicParsing="false" prefHeight="35.0" prefWidth="185.0" text="Order Confirm" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                <Button focusTraversable="false" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="35.0" prefWidth="185.0" text="Order Confirm" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                     <font>
                         <Font size="18.0" />
                     </font>
