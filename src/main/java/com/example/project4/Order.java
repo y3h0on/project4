@@ -9,10 +9,14 @@ public class Order {
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
-
+    public int getOrderNumber(){return orderNumber;}
     public Order(int orderNumber, ArrayList<MenuItem> orderList){
         this.orderNumber = orderNumber;
         this.orderList = orderList;
+    }
+
+    public ArrayList<MenuItem> getOrderList() {
+        return orderList;
     }
 
 

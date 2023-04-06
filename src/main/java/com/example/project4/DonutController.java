@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,8 +39,6 @@ public class DonutController {
     private MainController mainController = new MainController();
     @FXML
     private ImageView donutImage;
-
-    ArrayList<MenuItem> orderList = new ArrayList<>();
     ArrayList<yeastDonut> listOfYeastDonuts = new ArrayList<>();
     ArrayList<cakeDonut> listOfCakeDonuts = new ArrayList<>();
     ArrayList<donutHoles> listOfDonutHoles = new ArrayList<>();
@@ -60,7 +57,6 @@ public class DonutController {
         numberList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6);
         quantity.setItems(numberList);
         containsQuantityDonut = FXCollections.observableArrayList();
-        Order order = new Order(0, orderList);
 
     }
 
@@ -110,6 +106,21 @@ public class DonutController {
         double amount = (a*y.itemPrice()) + (b*h.itemPrice()) + (c*u.itemPrice());
         return amount;
     }
+    private double yeastCalculate(){
+        int a = listOfYeastDonuts.size();
+        yeastDonut y = new yeastDonut();
+        return a*y.itemPrice();
+    }
+    private double cakeCalculate(){
+        int a = listOfCakeDonuts.size();
+        cakeDonut c = new cakeDonut();
+        return a*c.itemPrice();
+    }
+    private double donutCalculate(){
+        int a = listOfDonutHoles.size();
+        donutHoles d = new donutHoles();
+        return a*d.itemPrice();
+    }
 
     @FXML
     void add(ActionEvent event){
@@ -121,8 +132,9 @@ public class DonutController {
                         for (int i = 0; i < b; i++) {
                             yeastDonut z = new yeastDonut();
                             listOfYeastDonuts.add(z);
-                            orderList.add(z);
+                            mainController.getOrder().getOrderList().add(z);
                         }
+                        mainController.getMoreList().add(yeastCalculate());
                         int a = flavorList.getSelectionModel().getSelectedIndex();
                         String c = flavorList.getSelectionModel().getSelectedItem();
                         yeastList.remove(a);
@@ -145,8 +157,10 @@ public class DonutController {
                         for (int i = 0; i < b; i++) {
                             cakeDonut v = new cakeDonut();
                             listOfCakeDonuts.add(v);
-                            orderList.add(v);
+                            mainController.getOrder().getOrderList().add(v);
+
                         }
+                        mainController.getMoreList().add(cakeCalculate());
                         int a = flavorList.getSelectionModel().getSelectedIndex();
                         String c = flavorList.getSelectionModel().getSelectedItem();
                         cakeList.remove(a);
@@ -169,8 +183,10 @@ public class DonutController {
                         for (int i = 0; i < b; i++) {
                             donutHoles x = new donutHoles();
                             listOfDonutHoles.add(x);
-                            orderList.add(x);
+                            mainController.getOrder().getOrderList().add(x);
+
                         }
+                        mainController.getMoreList().add(donutCalculate());
                         int a = flavorList.getSelectionModel().getSelectedIndex();
                         String c = flavorList.getSelectionModel().getSelectedItem();
                         donutHoleList.remove(a);
@@ -216,6 +232,10 @@ public class DonutController {
                     listOfYeastDonuts.remove(listOfYeastDonuts.size()-1);
                     listOfYeastDonuts.trimToSize();
                 }
+                int index1 = mainController.getMoreList().indexOf(yeastCalculate());
+                mainController.getMoreList().remove(index1);
+                mainController.getMoreList().add(index1, yeastCalculate());
+                //mainController.getMoreList().add(yeastCalculate());
                 containsQuantityDonut.remove(a);
                 yeastList.add(b[1] + " " + b[2]);
                 flavorList.setItems(yeastList);
@@ -228,6 +248,10 @@ public class DonutController {
                     listOfCakeDonuts.remove(listOfCakeDonuts.size()-1);
                     listOfCakeDonuts.trimToSize();
                 }
+                int index2 = mainController.getMoreList().indexOf(cakeCalculate());
+                mainController.getMoreList().remove(index2);
+                mainController.getMoreList().add(index2, cakeCalculate());
+                //mainController.getMoreList().add(cakeCalculate());
                 containsQuantityDonut.remove(a);
                 cakeList.add(b[1] + " " + b[2]);
                 flavorList.setItems(cakeList);
@@ -239,10 +263,13 @@ public class DonutController {
                     listOfDonutHoles.remove(listOfDonutHoles.size()-1);
                     listOfDonutHoles.trimToSize();
                 }
+                int index3 = mainController.getMoreList().indexOf(donutCalculate());
+                mainController.getMoreList().remove(index3);
+                mainController.getMoreList().add(index3, donutCalculate());
+                //mainController.getMoreList().add(donutCalculate());
                 containsQuantityDonut.remove(a);
                 donutHoleList.add(b[1] + " " + b[2]);
                 flavorList.setItems(donutHoleList);
-                //set it to the respective type of donut here its donut holes
                 subTotal.setText(String.valueOf(calculateAmount()));
             }
         }else{
@@ -253,23 +280,16 @@ public class DonutController {
         }
     }
 
-    /*public double getCost(String a){
-        if()
-    }*/
-
-
     @FXML
     void addToOrder(ActionEvent event){
-        Order order = new Order(0, orderList);
-
         if(!finalList.getItems().isEmpty()){
             yeastDonut y = new yeastDonut();
             donutHoles d = new donutHoles();
             cakeDonut c = new cakeDonut();
+
             for (String name: containsQuantityDonut){
                 mainController.getList().add(name);
             }
-            mainController.getMoreList().add(calculateAmount());
 
         }else{
             Alert error = new Alert(Alert.AlertType.ERROR);

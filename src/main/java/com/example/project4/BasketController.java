@@ -8,10 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,6 +27,9 @@ public class BasketController {
     @FXML
     private ListView<String> finalList;
     private ObservableList<String> base;
+    MainController mainController = new MainController();
+
+
     public void setMainController(MainController controller){
         mainController = controller;
     }
@@ -49,39 +52,45 @@ public class BasketController {
 
         finalList.setItems(base);}
     }
-    @FXML
-    public void switchToMainPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    MainController mainController = new MainController();
 
-    /*public void initialize(){
-        setMainController(mainController);
-        base = FXCollections.observableArrayList();
-        base.add(0, mainController.getList().toString());
-        base.add(mainController.getList().toString());
-        finalList.setItems(base);
-    }*/
+
     @FXML
     void remove(ActionEvent event){
-        int a = finalList.getSelectionModel().getSelectedIndex();
-        ObservableList<String> selected = finalList.getSelectionModel().getSelectedItems();
-        finalList.getItems().removeAll(selected);
-        //also need to remove the selected item from the main controller list.
-        mainController.getList().remove(a);
+        if(!finalList.getSelectionModel().isEmpty()) {
+            int a = finalList.getSelectionModel().getSelectedIndex();
+            ObservableList<String> selected = finalList.getSelectionModel().getSelectedItems();
+            finalList.getItems().removeAll(selected);
+            //also need to remove the selected item from the main controller list.
+            mainController.getList().remove(a);
+            mainController.getMoreList().remove(a);
+            double total = mainController.getTotal();
+            subTotal.setText(String.valueOf(total));
+            double tax = ((total * SALES_TAX) / 100);
+            salesTax.setText(String.valueOf(tax));
+            double u = tax + total;
+            totalCost.setText(String.valueOf(u));
+        }else{
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("ERROR!");
+            error.setContentText("nothing to remove");
+            error.showAndWait();
+        }
+    }
 
-        //make a getCost method  for whatever string we are deleting.
-        mainController.getMoreList().remove(a);
-        double total = mainController.getTotal();
-        subTotal.setText(String.valueOf(total));
-        double tax = ((total*SALES_TAX)/100);
-        salesTax.setText(String.valueOf(tax));
-        double u = tax + total;
-        totalCost.setText(String.valueOf(u));
+    @FXML
+    void confirmOrder(ActionEvent event){
+        //move order to store order view.
+        //probably use the same arraylists from controller.
+        subTotal.setText("");
+        salesTax.setText("");
+        totalCost.setText("");
+        finalList.getItems().removeAll(base);
+        mainController.copy();
+
+        mainController.getOrder().setOrderNumber(mainController.getOrder().getOrderNumber()+1);
+
 
     }
+
+
 }

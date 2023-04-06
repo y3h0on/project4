@@ -48,8 +48,6 @@ public class CoffeeController {
         quantityCoffee.setItems(numberList);
         sizeList = FXCollections.observableArrayList("Short", "Tall", "Grande", "Venti");
         sizeSelect.setItems(sizeList);
-        //Order order = new Order(0, menuItems);
-
     }
 
     public void setMainController(MainController controller){
@@ -64,11 +62,21 @@ public class CoffeeController {
         stage.setScene(scene);
         stage.show();
     }
+
+    private void setFalse(){
+        sweetCream.setSelected(false);
+        irishCream.setSelected(false);
+        mocha.setSelected(false);
+        caramel.setSelected(false);
+        frenchVanilla.setSelected(false);
+    }
+
     private boolean checkErrors(){
         if(!sizeSelect.getSelectionModel().isEmpty() && !quantityCoffee.getSelectionModel().isEmpty()){
             return true;
         }
         if(sizeSelect.getSelectionModel().isEmpty() && quantityCoffee.getSelectionModel().isEmpty()){
+            setFalse();
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("ERROR!");
             error.setContentText("select a size and the quantity");
@@ -76,6 +84,7 @@ public class CoffeeController {
             return false;
         }
         if(sizeSelect.getSelectionModel().isEmpty() && !quantityCoffee.getSelectionModel().isEmpty()){
+            setFalse();
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("ERROR!");
             error.setContentText("select a size");
@@ -83,6 +92,7 @@ public class CoffeeController {
             return false;
         }
         if(!sizeSelect.getSelectionModel().isEmpty() && quantityCoffee.getSelectionModel().isEmpty()){
+            setFalse();
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("ERROR!");
             error.setContentText("select the quantity.");
@@ -119,22 +129,18 @@ public class CoffeeController {
                 total = total + 0.30;
             }
             subTotal.setText(String.valueOf(df.format(total)));
-
             if (frenchVanilla.isSelected()) {
                 total = total + 0.30;
             }
             subTotal.setText(String.valueOf(df.format(total)));
-
             if (irishCream.isSelected()) {
                 total = total + 0.30;
             }
             subTotal.setText(String.valueOf(df.format(total)));
-
             if (caramel.isSelected()) {
                 total = total + 0.30;
             }
             subTotal.setText(String.valueOf(df.format(total)));
-
             if (mocha.isSelected()) {
                 total = total + 0.30;
             }
@@ -148,7 +154,7 @@ public class CoffeeController {
     @FXML
     void addToCart(ActionEvent event){
         if(checkErrors()){
-            Order order = new Order(0, menuItems);
+            mainController.getOrder().setOrderNumber(1);
             int a = quantityCoffee.getSelectionModel().getSelectedItem();
             ArrayList<String> addIns = new ArrayList<>();
             if(frenchVanilla.isSelected()){
@@ -166,12 +172,12 @@ public class CoffeeController {
             if(mocha.isSelected()){
                 addIns.add("mocha");
             }
-
             for(int i = 0; i < a; i++){
                 Coffee c = new Coffee(sizeSelect.getSelectionModel().getSelectedItem(), addIns);
                 menuItems.add(c);
+                mainController.getOrder().getOrderList().add(c);
             }
-            //String item = a + " " + sizeSelect.getSelectionModel().getSelectedItem();
+
             Coffee c = new Coffee(sizeSelect.getSelectionModel().getSelectedItem(), addIns);
             mainController.getList().add( "Coffee" + " ("+quantityCoffee.getSelectionModel().getSelectedItem() + ") " + c.toString() );
             double b = Double.parseDouble(df.format(amt()));

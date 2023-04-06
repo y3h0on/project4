@@ -24,12 +24,30 @@ public class MainController {
     private Parent root;
 
     private ArrayList<String> items = new ArrayList<>();
+    private ArrayList<String> storeItems = new ArrayList<>();
     private ArrayList<Double> costOfCoffee = new ArrayList<>();
+    private ArrayList<Double> storeCost = new ArrayList<>();
+
+    public void copy(){
+        for(String name : items){
+            storeItems.add(name);
+        }
+        for(double num : costOfCoffee){
+            storeCost.add(num);
+        }
+    }
 
     public ArrayList getList(){
         return items;
     }
     public ArrayList getMoreList(){return costOfCoffee;}
+
+    private int a;
+    Order order = new Order(1, new ArrayList<MenuItem>());
+
+    public Order getOrder(){
+        return order;
+    }
 
     @FXML
     protected void switchToCoffeePage() {
@@ -83,9 +101,6 @@ public class MainController {
         }
     }
 
-
-
-
     @FXML
     protected void switchToBasketPage() {
         Stage view1 = new Stage();
@@ -114,13 +129,34 @@ public class MainController {
     }
 
 
+
+
     @FXML
-    public void switchToStoreOrderPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("StoreOrderView.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    protected void switchToStoreOrderPage() {
+        Stage view1 = new Stage();
+        VBox root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("StoreOrderView.fxml"));
+            root = (VBox) loader.load();
+            Scene scene = new Scene(root, 600, 600);
+            view1.setScene(scene);
+            view1.show();
+            StoreOrderController storeOrderController = loader.getController();
+            //storeOrderController.display(storeItems, storeCost);
+            storeOrderController.newDisplay(order.getOrderList(), storeCost);
+            /*
+              The statement below is to pass the reference of the MainController object
+              to the View1Controller object so the View1Controller can call the
+              public methods in the MainController.
+             */
+            storeOrderController.setMainController(this);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading View1.fxml.");
+            alert.setContentText("Couldn't load View1.fxml.");
+            alert.showAndWait();
+        }
     }
 
 
@@ -132,13 +168,7 @@ public class MainController {
         return a;
     }
 
-    /*@FXML
-    protected void display(ActionEvent event){
-        System.out.println(items.size());
-        for(String name : items){
-            System.out.println(name);
-        }
-    }*/
+
 
 
 
