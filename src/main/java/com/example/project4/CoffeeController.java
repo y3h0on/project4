@@ -48,6 +48,7 @@ public class CoffeeController {
         quantityCoffee.setItems(numberList);
         sizeList = FXCollections.observableArrayList("Short", "Tall", "Grande", "Venti");
         sizeSelect.setItems(sizeList);
+
     }
 
     public void setMainController(MainController controller){

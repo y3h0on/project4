@@ -286,10 +286,10 @@ public class DonutController {
             yeastDonut y = new yeastDonut();
             donutHoles d = new donutHoles();
             cakeDonut c = new cakeDonut();
-
             for (String name: containsQuantityDonut){
                 mainController.getList().add(name);
             }
+            
 
         }else{
             Alert error = new Alert(Alert.AlertType.ERROR);
@@ -298,15 +298,5 @@ public class DonutController {
             error.showAndWait();
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 }

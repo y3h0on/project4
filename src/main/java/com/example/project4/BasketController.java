@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BasketController {
@@ -29,6 +30,7 @@ public class BasketController {
     private ObservableList<String> base;
     MainController mainController = new MainController();
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public void setMainController(MainController controller){
         mainController = controller;
@@ -44,12 +46,12 @@ public class BasketController {
             for(double num : cost){
                 total = total + num;
             }
-            subTotal.setText(String.valueOf(total));
-            double tax = ((total*SALES_TAX)/100);
-            salesTax.setText(String.valueOf(tax));
-            double u = tax + total;
-            totalCost.setText(String.valueOf(u));
 
+            subTotal.setText(String.valueOf(Double.parseDouble(df.format(total))));
+            double tax = ((total*SALES_TAX)/100);
+            salesTax.setText(String.valueOf(Double.parseDouble(df.format(tax))));
+            double u = tax + total;
+            totalCost.setText(String.valueOf(Double.parseDouble(df.format(u))));
         finalList.setItems(base);}
     }
 
@@ -64,11 +66,11 @@ public class BasketController {
             mainController.getList().remove(a);
             mainController.getMoreList().remove(a);
             double total = mainController.getTotal();
-            subTotal.setText(String.valueOf(total));
+            subTotal.setText(String.valueOf(Double.parseDouble(df.format(total))));
             double tax = ((total * SALES_TAX) / 100);
-            salesTax.setText(String.valueOf(tax));
+            salesTax.setText(String.valueOf(Double.parseDouble(df.format(tax))));
             double u = tax + total;
-            totalCost.setText(String.valueOf(u));
+            totalCost.setText(String.valueOf(Double.parseDouble(df.format(u))));
         }else{
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("ERROR!");
@@ -79,15 +81,22 @@ public class BasketController {
 
     @FXML
     void confirmOrder(ActionEvent event){
-        //move order to store order view.
-        //probably use the same arraylists from controller.
+        if(!finalList.getItems().isEmpty()){
+        int a = mainController.getOrder().getOrderNumber();
+        mainController.getListForOrders().add(a);
+        mainController.copy();
+        mainController.clear();
         subTotal.setText("");
         salesTax.setText("");
         totalCost.setText("");
         finalList.getItems().removeAll(base);
-        mainController.copy();
-
-        mainController.getOrder().setOrderNumber(mainController.getOrder().getOrderNumber()+1);
+        mainController.getOrder().setOrderNumber(a+1);}
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR!");
+            alert.setContentText("order is empty!");
+            alert.showAndWait();
+        }
 
 
     }
